@@ -1,0 +1,91 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        while (true)
+        {
+            Console.WriteLine("Добро пожаловать!");
+            Console.WriteLine("Доступные команды: / start, / help, / info, / exit, /addtask, /removetask, /showtask");
+            Console.WriteLine("Введите команду:");
+            string input = Console.ReadLine();
+            string[] command = input.Split(' ');
+            string name;
+                List<string> tasks = new List<string>();
+                switch (command[0])
+                {
+                    case "/start":
+                        Console.WriteLine("Введите ваше имя:");
+                        name = Console.ReadLine();
+                        Console.WriteLine($"Привет, {name}!");
+                        break;
+
+                    case "/help":
+                        Console.WriteLine("Доступные команды:\n/start - ввести имя\n/help - помощь\n/info - информация\n/exit - выход\n/addtask - добавить задачу\n/showtasks - показать задачи\n/removetask - удалить задачу");
+                        break;
+
+                    case "/info":
+                        Console.WriteLine("Версия программы: 2.0\nДата создания: 17.10.2024\nДата обновления 01.12.2024");
+                        break;
+
+                    case "/addtask":
+                        Console.WriteLine("Введите описание задачи:");
+                        string task = Console.ReadLine();
+                        tasks.Add(task);
+                        Console.WriteLine("Задача добавлена!");
+                        break;
+
+                    case "/showtasks":
+                        if (tasks.Count == 0)
+                        {
+                            Console.WriteLine("Список задач пуст.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Список задач:");
+                            for (int i = 0; i < tasks.Count; i++)
+                            {
+                                Console.WriteLine($"{i + 1}. {tasks[i]}");
+                            }
+                        }
+                        break;
+
+                    case "/removetask":
+                        if (tasks.Count == 0)
+                        {
+                            Console.WriteLine("Список задач пуст.");
+                        }
+                        else
+                        {
+                            Console.WriteLine(" Выберите номер задачи для удаления:");
+                            for (int i = 0; i < tasks.Count; i++)
+                            {
+                                Console.WriteLine($"{i + 1}. {tasks[i]}");
+                            }
+                            int taskNumber = int.Parse(Console.ReadLine());
+                            if (taskNumber < 1 || taskNumber > tasks.Count)
+                            {
+                                Console.WriteLine("Неверный номер задачи!");
+                            }
+                            else
+                            {
+                                tasks.RemoveAt(taskNumber - 1);
+                                Console.WriteLine("Задача удалена.");
+                            }
+                        }
+                        break;
+                    case "/exit":
+                        Console.WriteLine("Вы вышли из программы удачного дня");
+                        return;
+
+                    default:
+                        Console.WriteLine("Неизвестная команда. Воспользуйтесь командой /help для просмотра доступных команд.");
+                        break;
+                
+            }
+        }
+    }
+}
